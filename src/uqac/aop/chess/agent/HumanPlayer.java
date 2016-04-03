@@ -10,18 +10,21 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public boolean makeMove(Move mv) {
+	public boolean makeMove(Move mv, Board playground) {
 		// TODO Auto-generated method stub
-		if(mv == null)
+		if(mv.getLegal()){
+			if(!playGround.getGrid()[mv.xI][mv.yI].isOccupied())
+				return false;
+			if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
+				return false;
+			if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
+				return false;
+				playGround.movePiece(mv);
+				return true;
+		}
+		else
 			return false;
-		if(!playGround.getGrid()[mv.xI][mv.yI].isOccupied())
-			return false;
-		if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
-			return false;
-		if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
-			return false;		
-		playGround.movePiece(mv);
-			return true;
+			
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class HumanPlayer extends Player {
 
 			mv = new Move(initialX-'a', initialY-'1', finalX - 'a', 	finalY-'1');
 		}
-		while(!makeMove(mv));
+		while(!makeMove(mv, this.playGround));
 		return mv;
 	}
 	

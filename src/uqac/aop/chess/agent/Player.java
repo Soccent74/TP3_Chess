@@ -9,7 +9,7 @@ public abstract class Player {
 	protected int Colour;
 	protected Board playGround;
 
-	public abstract boolean makeMove(Move mv);
+	public abstract boolean makeMove(Move mv, Board playground);
 	public abstract Move makeMove();
 	
 	public int getColor(){

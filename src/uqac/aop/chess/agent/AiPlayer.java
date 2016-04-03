@@ -1,6 +1,7 @@
 package uqac.aop.chess.agent;
 
 import java.util.Random;
+
 import uqac.aop.chess.Board;
 
 public class AiPlayer extends Player {
@@ -13,18 +14,21 @@ public class AiPlayer extends Player {
 	}
 
 	@Override
-	public boolean makeMove(Move mv) {
+	public boolean makeMove(Move mv, Board playground) {
 		// TODO Auto-generated method stub
-		if (mv == null)
+		if(mv.getLegal()){
+			if(!playGround.getGrid()[mv.xI][mv.yI].isOccupied())
+				return false;
+			if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
+				return false;
+			if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
+				return false;
+				playGround.movePiece(mv);
+				return true;
+		}
+		else
 			return false;
-		if (!playGround.getGrid()[mv.xI][mv.yI].isOccupied())
-			return false;
-		if (playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
-			return false;
-		if (!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
-			return false;
-		playGround.movePiece(mv);
-		return true;
+			
 	}
 
 	@Override
@@ -38,7 +42,7 @@ public class AiPlayer extends Player {
 			finX = Dies.nextInt(8);
 			finY = Dies.nextInt(8);
 			mv = new Move(iniX, iniY, finX, finY);
-		} while (!makeMove(mv));
+		} while(!makeMove(mv, this.playGround));
 
 		System.out.println("Votre coup? <" + mv.toString()+ ">");
 		return mv;
