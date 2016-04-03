@@ -8,12 +8,14 @@ public aspect ValidationDeplacement {
 	public Board playground;
 	public int pl;		// Symbolise le player. 
 	public Piece piI, piF;
+	
+	// POINTCUT
 	pointcut checkMove(Move mv, Board bd):  
 	(
 		call(boolean uqac.aop.chess.agent.Player.makeMove(Move, Board)) && args(mv, bd)
 	);
 	
-	//ADVICE
+	// ADVICE
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
 			mv.setLegal(false);
@@ -24,18 +26,25 @@ public aspect ValidationDeplacement {
 					piI = playground.getGrid()[mv.xI][mv.yI].getPiece();
 					
 					if(playground.getGrid()[mv.xF][mv.yF].isOccupied()){
-						piF = playground.getGrid()[mv.xI][mv.yI].getPiece();
+						piF = playground.getGrid()[mv.xF][mv.yF].getPiece();
 						
 						if(piF.getPlayer() != piI.getPlayer()){
 							System.out.println("Le coup est possible.");
 							mv.setLegal(true);
+							//System.out.println(piF.getClass().getName());
+							//System.out.println(piI.getClass().getName());
 						} else {
 							System.out.println("Pièce de départ et pièce à l'arrivé appartenant au même joueur.");
 							mv.setLegal(false);
 						}
 						
 					} else {
-						mv.setLegal(piI.isMoveLegal(mv));
+						boolean isLegal = piI.isMoveLegal(mv);
+						if(isLegal){
+							mv.setLegal(isLegal);
+						} else {
+							System.out.println("Move illegal, try again. :)");
+						}
 					}
 					
 				} else {
