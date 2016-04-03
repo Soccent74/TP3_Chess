@@ -10,7 +10,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public boolean makeMove(Move mv) {
+	public boolean makeMove(Move mv, Board playground) {
 		// TODO Auto-generated method stub
 		if(mv == null)
 			return false;
@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
 		if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
 			return false;
 		if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
-			return false;		
+			return false;
 		playGround.movePiece(mv);
 			return true;
 	}
@@ -41,7 +41,7 @@ public class HumanPlayer extends Player {
 
 			mv = new Move(initialX-'a', initialY-'1', finalX - 'a', 	finalY-'1');
 		}
-		while(!makeMove(mv));
+		while(!makeMove(mv, this.playGround));
 		return mv;
 	}
 	

@@ -14,7 +14,13 @@ public abstract class Piece {
     	 setPlayer(player);
 	}
 	public int getPlayer() {
+		try{
              return player;
+		}
+         catch (Exception e) {
+        	 System.out.println("Pas de pièce à cet endroit.");
+        	 return 2;
+		}
      }
      public void setPlayer(int player) {
              this.player = player;

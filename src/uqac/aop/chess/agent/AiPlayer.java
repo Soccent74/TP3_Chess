@@ -13,7 +13,7 @@ public class AiPlayer extends Player {
 	}
 
 	@Override
-	public boolean makeMove(Move mv) {
+	public boolean makeMove(Move mv, Board bd) {
 		// TODO Auto-generated method stub
 		if (mv == null)
 			return false;
@@ -38,7 +38,7 @@ public class AiPlayer extends Player {
 			finX = Dies.nextInt(8);
 			finY = Dies.nextInt(8);
 			mv = new Move(iniX, iniY, finX, finY);
-		} while (!makeMove(mv));
+		} while(!makeMove(mv, this.playGround));
 
 		System.out.println("Votre coup? <" + mv.toString()+ ">");
 		return mv;
