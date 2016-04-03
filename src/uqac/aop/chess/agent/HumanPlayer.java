@@ -31,7 +31,6 @@ public class HumanPlayer extends Player {
 		char initialY = '\0';
 		char finalX = '\0';
 		char finalY = '\0';
-		System.out.println("On va tenter le point cut");
 		do{				
 			System.out.print ("Votre coup? <a2a4> ");				
 			initialX = Lire();
