@@ -14,8 +14,12 @@ public aspect ValidationDeplacement {
 	(
 		call(boolean uqac.aop.chess.agent.Player.makeMove(Move, Board)) && args(mv, bd)
 	);
+<<<<<<< HEAD
 	
 	// ADVICE
+=======
+	//ADVICE
+>>>>>>> origin/master
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
 			mv.setLegal(false);
@@ -55,7 +59,7 @@ public aspect ValidationDeplacement {
 				
 				
 			} catch (Exception e){
-				System.out.println("Il n'y a aucune pièce à ces coordonnées. STUPIDE IA");
+				System.out.println("Il n'y a aucune pièce à ces coordonnées.");
 			}
 		}
 	}
