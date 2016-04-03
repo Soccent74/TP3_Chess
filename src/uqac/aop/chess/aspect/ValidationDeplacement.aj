@@ -6,11 +6,11 @@ import java.io.FileWriter;
 import uqac.aop.chess.agent.Move;
 
 public aspect ValidationDeplacement {
-	//POINTCUT
-	pointcut checkMove(): 
-	(
-		call(boolean uqac.aop.chess.piece.Piece.isMoveLegal(Move))
+	pointcut checkMove(Move mv): 
+		target(mv) && (
+			call(boolean uqac.aop.chess.piece.Piece.isMoveLegal(Move))
 	);
+<<<<<<< HEAD
 	pointcut logDeplacement():
 	(
 		execution (Move uqac.aop.chess.agent.HumanPlayer.makeMove()) ||
@@ -19,6 +19,10 @@ public aspect ValidationDeplacement {
 	
 	//ADVICE
 	after() : checkMove() {
+=======
+ 
+	before(Move mv) : checkMove(mv) {
+>>>>>>> origin/master
 		System.out.println("POINTCUT");
 	}
 	
