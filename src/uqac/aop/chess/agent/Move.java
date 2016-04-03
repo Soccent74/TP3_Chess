@@ -18,5 +18,6 @@ public class Move {
 	public void setLegal(boolean legal) {
 		this.legal = legal;
 	}
+	public boolean getLegal(){return this.legal;}
 	
 }
