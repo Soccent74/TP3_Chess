@@ -72,19 +72,19 @@ public aspect LogDeplacement {
 			default : POSXF = "X";
 		}
 		try{
-			File fichier = new File("C:\\Users\\Lucas\\Documents\\GitHub\\uqac_POA_TP3\\log.txt"); //Chemin du fichier
+			File fichier = new File("C:\\Users\\Lucas\\Documents\\GitHub\\TP3_Chess\\log.txt"); //Chemin du fichier
 			FileWriter ffw = new FileWriter(fichier, true);
 			joueur = true;
 			if (joueur == true){
 				coup = "Joueur Humain " + POSXI + mv.yI + " vers " + POSXF + mv.yF + " \n ";
 				joueur = false;
-				System.out.println(joueur);
+				//System.out.println(joueur);
 			}else{
 				coup = "Joueur IA " + POSXI + mv.yI + " vers " + POSXF + mv.yF + " \n ";
 				joueur = true;
-				System.out.println(joueur);
+				//System.out.println(joueur);
 			}
-			System.out.println(coup);
+			//System.out.println(coup);
 			try {
 				ffw.write(coup);  //Ecrit une ligne dans le fichier log.txt
 				ffw.write("\r\n"); //Force le passage à la ligne

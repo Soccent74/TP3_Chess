@@ -6,12 +6,13 @@ public aspect ValidationDeplacement {
 	//POINTCUT
 	pointcut checkMove(): 
 	(
-		call(boolean uqac.aop.chess.piece.Piece.isMoveLegal(Move))
+
 	);
 	
 	//ADVICE
-	after() : checkMove() {
+	before() : checkMove() {
 		System.out.println("POINTCUT");
+				
 	}
 	
  
