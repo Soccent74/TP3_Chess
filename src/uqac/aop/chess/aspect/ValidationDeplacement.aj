@@ -14,12 +14,6 @@ public aspect ValidationDeplacement {
 	(
 		call(boolean uqac.aop.chess.agent.Player.makeMove(Move, Board)) && args(mv, bd)
 	);
-<<<<<<< HEAD
-	
-	// ADVICE
-=======
-	//ADVICE
->>>>>>> origin/master
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
 			mv.setLegal(false);
