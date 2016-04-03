@@ -24,8 +24,6 @@ public class Chess {
 		this.board = board;
 	}
 	
-
-
 	private void play() {
 		Player hp = new HumanPlayer(Player.BLACK, board);
 		Player ap = new AiPlayer(Player.WHITE, board);
