@@ -10,18 +10,8 @@ public aspect ValidationDeplacement {
 	public Piece piI, piF;
 	pointcut checkMove(Move mv, Board bd):  
 	(
-<<<<<<< HEAD
-
-	);
-	
-	//ADVICE
-	before() : checkMove() {
-		System.out.println("POINTCUT");
-				
-=======
 		call(boolean uqac.aop.chess.agent.Player.makeMove(Move, Board)) && args(mv, bd)
 	);
-	
 	//ADVICE
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
@@ -55,9 +45,8 @@ public aspect ValidationDeplacement {
 				
 				
 			} catch (Exception e){
-				System.out.println("Il n'y a aucune pièce à ces coordonnées. STUPIDE IA");
+				System.out.println("Il n'y a aucune pièce à ces coordonnées.");
 			}
 		}
->>>>>>> origin/master
 	}
 }

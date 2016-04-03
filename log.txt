@@ -2,3 +2,7 @@ Joueur Humain a2 vers a4
  
 Joueur Humain g8 vers f6 
  
+Joueur Humain b1 vers c3 
+ 
+Joueur Humain g8 vers f6 
+ 
