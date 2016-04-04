@@ -106,7 +106,6 @@ public aspect ValidationDeplacement {
 				break;
 				
 			case "uqac.aop.chess.piece.Rook":
-				System.out.println("La tour essaye d'avancer.");
 				flag = obstableDroite(mv, playground);
 				break;
 				
@@ -155,15 +154,14 @@ public aspect ValidationDeplacement {
 						piF = playground.getGrid()[mv.xF][mv.yF].getPiece();
 						
 						if(piF.getPlayer() != piI.getPlayer()){
-							System.out.println("Le coup est possible.");
 							if(obstacle(mv, bd, piI)){
 								mv.setLegal(true);
 							} else {
 								mv.setLegal(false);
 							}
-							
+		
 						} else {
-							System.out.println("Pièce de départ et pièce à l'arrivé appartenant au même joueur.");
+							System.out.println("ERREUR Pièce de départ et pièce à l'arrivée appartenant au même joueur.");
 							mv.setLegal(false);
 						}
 						
@@ -176,7 +174,7 @@ public aspect ValidationDeplacement {
 								mv.setLegal(false);
 							}
 						} else {
-							System.out.println("Move illegal, try again. :)");
+							System.out.println("Mouvement illégal, recommencez !");
 						}
 					}
 				} else {
