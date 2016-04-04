@@ -17,13 +17,19 @@ public class AiPlayer extends Player {
 	public boolean makeMove(Move mv, Board playground) {
 		// TODO Auto-generated method stub
 		if(mv.getLegal()){
-			if(!playGround.getGrid()[mv.xI][mv.yI].isOccupied())
+			if(!playGround.getGrid()[mv.xI][mv.yI].isOccupied()){
+				mv.setLegal(false);
 				return false;
-			if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor())
+			}
+			if(playGround.getGrid()[mv.xI][mv.yI].getPiece().getPlayer() == this.getColor()){
+				mv.setLegal(false);
 				return false;
-			if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv))
+			}
+			if(!playGround.getGrid()[mv.xI][mv.yI].getPiece().isMoveLegal(mv)){
+				mv.setLegal(false);
 				return false;
-				playGround.movePiece(mv);
+			}
+			playGround.movePiece(mv);
 				return true;
 		}
 		else

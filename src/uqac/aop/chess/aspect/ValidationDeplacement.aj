@@ -43,11 +43,11 @@ public aspect ValidationDeplacement {
 			}
 			break;
 		case 4: //x>0 && y==0
-			System.out.println("Erreur dans obstacleDiagonale, cas numéro 4.");
+			//System.out.println("Erreur dans obstacleDiagonale, cas numéro 4.");
 			break;
 
 		default:
-			System.out.println("Erreur sur la vérification de la diagonale.");
+			//System.out.println("Erreur sur la vérification de la diagonale.");
 			break;
 		}
 		return true; 
@@ -86,11 +86,11 @@ public aspect ValidationDeplacement {
 			}
 			break;
 		case 4: //x>0 && y==0
-			System.out.println("Erreur dans obstacleDroite, cas numéro 4.");
+			//System.out.println("Erreur dans obstacleDroite, cas numéro 4.");
 			break;
 
 		default:
-			System.out.println("Erreur sur la vérification de la diagonale.");
+			//System.out.println("Erreur sur la vérification de la diagonale.");
 			break;
 		}
 		return true; 
@@ -99,14 +99,14 @@ public aspect ValidationDeplacement {
 	public boolean obstacle(Move mv, Board playground, Piece piece){
 		boolean flag = false;
 		String name = piece.getClass().getName();
-		System.out.println(name);
+		//System.out.println(name);
 		switch (name) {
 			case "uqac.aop.chess.piece.Bishop":
 				flag = obstableDiagonale(mv, playground);
 				break;
 				
 			case "uqac.aop.chess.piece.Rook":
-				System.out.println("La tour essaye d'avancer.");
+				//System.out.println("La tour essaye d'avancer.");
 				flag = obstableDroite(mv, playground);
 				break;
 				
@@ -130,7 +130,7 @@ public aspect ValidationDeplacement {
 				}
 				break;
 			default:
-				System.out.println("ERREUR dans le choix de la piece pour le contrôle d'obstacle.");
+				//System.out.println("ERREUR dans le choix de la piece pour le contrôle d'obstacle.");
 				break;
 			}
 		return flag;
@@ -144,7 +144,7 @@ public aspect ValidationDeplacement {
 	// ADVICE
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
-			System.out.println("Aucun move existant.");
+			//System.out.println("Aucun move existant.");
 		}else{
 			playground = bd;
 			try{
@@ -155,15 +155,15 @@ public aspect ValidationDeplacement {
 						piF = playground.getGrid()[mv.xF][mv.yF].getPiece();
 						
 						if(piF.getPlayer() != piI.getPlayer()){
-							System.out.println("Le coup est possible.");
+							//System.out.println("Le coup est possible.");
 							if(obstacle(mv, bd, piI)){
 								mv.setLegal(true);
 							} else {
 								mv.setLegal(false);
 							}
-							
+		
 						} else {
-							System.out.println("Pièce de départ et pièce à l'arrivé appartenant au même joueur.");
+							//System.out.println("Pièce de départ et pièce à l'arrivé appartenant au même joueur.");
 							mv.setLegal(false);
 						}
 						
@@ -176,15 +176,15 @@ public aspect ValidationDeplacement {
 								mv.setLegal(false);
 							}
 						} else {
-							System.out.println("Move illegal, try again. :)");
+							//System.out.println("Move illegal, try again. :)");
 						}
 					}
 				} else {
-					System.out.println("ERREUR lors de l'indication de la pièce à bouger.");
+					//System.out.println("ERREUR lors de l'indication de la pièce à bouger.");
 					mv.setLegal(false);
 				}
 			} catch (Exception e){
-				System.out.println("Il n'y a aucune pièce à ces coordonnées.");
+				//System.out.println("Il n'y a aucune pièce à ces coordonnées.");
 			}
 		}
 	}
