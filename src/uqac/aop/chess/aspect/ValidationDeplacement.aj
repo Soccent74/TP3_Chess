@@ -13,7 +13,7 @@ public aspect ValidationDeplacement {
 	public boolean obstableDiagonale(Move mv, Board playground){
 		int x = mv.xF-mv.xI;
 		int y = mv.yF-mv.yI;
-		int direction, i;
+		int direction =4, i;
 		
 		if(x>0 && y>0){direction=0;}
 		else if(x<0 && y>0){direction=1;}
@@ -42,6 +42,9 @@ public aspect ValidationDeplacement {
 				if(playground.getGrid()[mv.xI+i][mv.yI-i].isOccupied()){return false;}
 			}
 			break;
+		case 4: //x>0 && y==0
+			System.out.println("Erreur dans obstacleDiagonale, cas numéro 4.");
+			break;
 
 		default:
 			System.out.println("Erreur sur la vérification de la diagonale.");
@@ -53,7 +56,7 @@ public aspect ValidationDeplacement {
 	public boolean obstableDroite(Move mv, Board playground){
 		int x = mv.xF-mv.xI;
 		int y = mv.yF-mv.yI;
-		int direction, i;
+		int direction=4, i;
 		
 		if(x>0 && y==0){direction=0;}
 		else if(x==0 && y>0){direction=1;}
@@ -73,14 +76,17 @@ public aspect ValidationDeplacement {
 			}
 			break;
 		case 2: // x==0 && y<0
-			for(i=1; i>mv.yF; i--){
-				if(playground.getGrid()[mv.xI][mv.yI+i].isOccupied()){return false;}
+			for(i=1; i<mv.yF; i++){
+				if(playground.getGrid()[mv.xI][mv.yI-i].isOccupied()){return false;}
 			}
 			break;
 		case 3: // x<0 && y==0
-			for(i=1; i>mv.xF; i--){
+			for(i=1; i<mv.xF; i++){
 				if(playground.getGrid()[mv.xI+i][mv.yI].isOccupied()){return false;}
 			}
+			break;
+		case 4: //x>0 && y==0
+			System.out.println("Erreur dans obstacleDroite, cas numéro 4.");
 			break;
 
 		default:
@@ -93,35 +99,40 @@ public aspect ValidationDeplacement {
 	public boolean obstacle(Move mv, Board playground, Piece piece){
 		boolean flag = false;
 		String name = piece.getClass().getName();
+		System.out.println(name);
 		switch (name) {
-		case "uqac.aop.chess.piece.rook":
-			flag = obstableDiagonale(mv, playground);
-			break;
-		case "uqac.aop.chess.piece.Pawn":
-			flag = obstableDroite(mv, playground);
-			break;
-		case "uqac.aop.chess.piece.King":
-			flag = true;
-			break;
-		case "uqac.aop.chess.piece.Bishop":
-			flag = true;
-			break;
-		case "uqac.aop.chess.piece.Knight":
-			flag = true;
-			break;
-		case "uqac.aop.chess.piece.Queen":
-			int x = mv.xF-mv.xI;
-			int y = mv.yF-mv.yI;
-			if(x==0 || y==0){
-				flag = obstableDroite(mv, playground);
-			}else{
+			case "uqac.aop.chess.piece.Bishop":
 				flag = obstableDiagonale(mv, playground);
+				break;
+				
+			case "uqac.aop.chess.piece.Rook":
+				System.out.println("La tour essaye d'avancer.");
+				flag = obstableDroite(mv, playground);
+				break;
+				
+			case "uqac.aop.chess.piece.King":
+				flag = true;
+				break;
+				
+			case "uqac.aop.chess.piece.Pawn":
+				flag = true;
+				break;
+			case "uqac.aop.chess.piece.Knight":
+				flag = true;
+				break;
+			case "uqac.aop.chess.piece.Queen":
+				int x = mv.xF-mv.xI;
+				int y = mv.yF-mv.yI;
+				if(x==0 || y==0){
+					flag = obstableDroite(mv, playground);
+				}else{
+					flag = obstableDiagonale(mv, playground);
+				}
+				break;
+			default:
+				System.out.println("ERREUR dans le choix de la piece pour le contrôle d'obstacle.");
+				break;
 			}
-			break;
-		default:
-			System.out.println("ERREUR dans le choix de la piece pour le contrôle d'obstacle.");
-			break;
-		}
 		return flag;
 	}
 	// POINTCUT
@@ -133,7 +144,7 @@ public aspect ValidationDeplacement {
 	// ADVICE
 	before(Move mv, Board bd) : checkMove(mv, bd) {
 		if(mv == null){
-			mv.setLegal(false);
+			System.out.println("Aucun move existant.");
 		}else{
 			playground = bd;
 			try{
@@ -159,7 +170,11 @@ public aspect ValidationDeplacement {
 					} else {
 						boolean isLegal = piI.isMoveLegal(mv);
 						if(isLegal){
-							mv.setLegal(isLegal);
+							if(obstacle(mv, bd, piI)){
+								mv.setLegal(true);
+							} else {
+								mv.setLegal(false);
+							}
 						} else {
 							System.out.println("Move illegal, try again. :)");
 						}
