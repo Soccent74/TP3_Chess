@@ -1,8 +1,4 @@
-Joueur Humain a2 vers a4 
+Joueur Humain b2 vers b4 
  
 Joueur IA     g8 vers f6 
- 
-Joueur Humain a4 vers a5 
- 
-Joueur IA     f6 vers e4 
  

@@ -94,7 +94,7 @@ public aspect LogDeplacement {
 			fichierw.close();
 			}
 		} catch(Exception e){
-			System.out.println("ERREUR CREATION");
+			System.out.println("ERREUR CREATION FICHIER");
 		}
 	}
 }
