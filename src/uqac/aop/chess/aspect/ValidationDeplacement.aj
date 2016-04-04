@@ -184,7 +184,7 @@ public aspect ValidationDeplacement {
 					mv.setLegal(false);
 				}
 			} catch (Exception e){
-				System.out.println("Il n'y a aucune pièce à ces coordonnées.");
+				System.out.println("Il n'y a aucune pièce à ces coordonnéesa.");
 			}
 		}
 	}
